@@ -99,6 +99,8 @@ class Connection(object):
             return
 
         if 'cloud' in self.cluster_options:
+            if self.hosts:
+                log.warning("Ignoring hosts %s because a cloud config was provided.", self.hosts)
             self.cluster = Cluster(**self.cluster_options)
         else:
             self.cluster = Cluster(self.hosts, **self.cluster_options)
